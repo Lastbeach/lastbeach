@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last Beach - La Manga</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            color: #333;
+        }
+        
+        /* Header */
+        .header {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            transform: rotate(45deg);
+            border: 2px solid #2c3e50;
+            background: white;
+            position: relative;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: normal;
+            letter-spacing: 3px;
+            color: #333;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+        
+        .nav a:hover {
+            color: #333;
+        }
+        
+        .lang-btn {
+            border: 2px solid #666;
+            padding: 8px 15px;
+            background: transparent;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn:hover {
+            background: #666;
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(70, 100, 130, 0.7), rgba(70, 100, 130, 0.7)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><rect fill="%234682b4" width="1920" height="1080"/><circle fill="rgba(255,255,255,0.1)" cx="500" cy="300" r="100"/><circle fill="rgba(255,255,255,0.08)" cx="1200" cy="200" r="80"/><circle fill="rgba(255,255,255,0.06)" cx="800" cy="600" r="120"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-title {
+            font-size: 4rem;
+            font-weight: normal;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 3.5rem;
+            font-weight: normal;
+            letter-spacing: 6px;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .anchor-icon {
+            font-size: 3rem;
+            color: #87ceeb;
+            margin-bottom: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            line-height: 1.6;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        /* Image Section */
+        .image-section {
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-container {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .hero-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.1) 0%,
+                rgba(0,0,0,0.3) 50%,
+                rgba(0,0,0,0.6) 100%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .image-title {
+            font-size: 2.5rem;
+            font-weight: normal;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .image-description {
+            font-size: 1.3rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            max-width: 600px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        /* Logo Section */
+        .logo-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+            text-align: center;
+        }
+        
+        /* Common Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: normal;
+            letter-spacing: 6px;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+        }
+        
+        .feature span:last-child {
+            font-size: 1rem;
+            color: #666;
+            letter-spacing: 1px;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .pricing-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pricing-card.premium {
+            transform: scale(1.05);
+            border: 3px solid #2c3e50;
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        
+        .price {
+            font-size: 3rem;
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #666;
+            font-weight: normal;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .features-list li {
+            padding: 8px 0;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .btn-reserve {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-reserve:hover {
+            background: #34495e;
+        }
+        
+        /* Calendar Section */
+        .calendar-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .calendar-info {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .calendar-info p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        .calendar-widget {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .calendar-widget h4 {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        
+        .date-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .date-input label {
+            display: block;
+            margin-bottom: 10px;
+            color: #666;
+            font-weight: bold;
+        }
+        
+        .date-input input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .btn-check {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-check:hover {
+            background: #34495e;
+        }
+        
+        /* Films Section */
+        .films-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .films-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .film-item {
+            text-align: center;
+        }
+        
+        .film-thumbnail {
+            height: 200px;
+            background: linear-gradient(45deg, #2c3e50, #4682b4);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .film-thumbnail:hover {
+            transform: scale(1.05);
+        }
+        
+        .play-button {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .film-item h4 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            letter-spacing: 1px;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .faq-toggle {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-answer p {
+            padding: 0 0 20px 0;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+        
+        .contact-item {
+            margin-bottom: 30px;
+        }
+        
+        .contact-item h4 {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .contact-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .contact-form h4 {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2c3e50;
+        }
+        
+        .btn-send {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-send:hover {
+            background: #34495e;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo .logo-text {
+            color: white;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: scale(1.2);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        .logo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .main-logo {
+            display: inline-block;
+        }
+        
+        .logo-diamond {
+            width: 200px;
+            height: 200px;
+            transform: rotate(45deg);
+            border: 4px solid #2c3e50;
+            margin: 0 auto 40px;
+            position: relative;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .palm-trees {
+            transform: rotate(-45deg);
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .palm-tree {
+            position: absolute;
+            width: 3px;
+            height: 40px;
+            background: #2c3e50;
+        }
+        
+        .palm-1 {
+            left: 35px;
+            top: 30px;
+        }
+        
+        .palm-1::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -12px;
+            width: 25px;
+            height: 15px;
+            border-radius: 50% 50% 0 0;
+            border: 2px solid #2c3e50;
+            border-bottom: none;
+            transform: rotate(-30deg);
+        }
+        
+        .palm-1::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            width: 25px;
+            height: 15px;
+            border-radius: 50% 50% 0 0;
+            border: 2px solid #2c3e50;
+            border-bottom: none;
+            transform: rotate(30deg);
+        }
+        
+        .palm-2 {
+            right: 25px;
+            top: 20px;
+            height: 35px;
+        }
+        
+        .palm-2::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -10px;
+            width: 20px;
+            height: 12px;
+            border-radius: 50% 50% 0 0;
+            border: 2px solid #2c3e50;
+            border-bottom: none;
+            transform: rotate(-35deg);
+        }
+        
+        .palm-2::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            right: -10px;
+            width: 20px;
+            height: 12px;
+            border-radius: 50% 50% 0 0;
+            border: 2px solid #2c3e50;
+            border-bottom: none;
+            transform: rotate(35deg);
+        }
+        
+        .island {
+            position: absolute;
+            bottom: 35px;
+            left: 20px;
+            right: 20px;
+            height: 15px;
+            background: white;
+            border: 2px solid #2c3e50;
+            border-radius: 50px 50px 0 0;
+        }
+        
+        .waves {
+            position: absolute;
+            bottom: 15px;
+            left: 10px;
+            right: 10px;
+            height: 20px;
+        }
+        
+        .waves::before {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: repeating-linear-gradient(
+                to right,
+                transparent 0px,
+                transparent 8px,
+                #2c3e50 8px,
+                #2c3e50 12px
+            );
+            border-radius: 50px;
+        }
+        
+        .waves::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 5px;
+            right: 5px;
+            height: 3px;
+            background: repeating-linear-gradient(
+                to right,
+                transparent 0px,
+                transparent 6px,
+                #2c3e50 6px,
+                #2c3e50 10px
+            );
+            border-radius: 50px;
+        }
+        
+        .logo-title {
+            font-size: 3rem;
+            font-weight: normal;
+            letter-spacing: 8px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .logo-subtitle {
+            font-size: 1.5rem;
+            font-weight: normal;
+            letter-spacing: 6px;
+            color: #666;
+            margin: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+            
+            .hero-subtitle {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+            
+            .logo-diamond {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .logo-title {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+            
+            .logo-subtitle {
+                font-size: 1.2rem;
+                letter-spacing: 3px;
+            }
+            
+            .image-container {
+                height: 50vh;
+            }
+            
+            .image-title {
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+            }
+            
+            .image-description {
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                letter-spacing: 3px;
+                margin-bottom: 40px;
+            }
+            
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                margin-top: 30px;
+            }
+            
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .pricing-card.premium {
+                transform: none;
+            }
+            
+            .date-inputs {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .films-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 30px;
+            }
+            
+            .footer-links {
+                justify-content: center;
+            }
+            
+            .about-section,
+            .pricing-section,
+            .calendar-section,
+            .films-section,
+            .faq-section,
+            .contact-section {
+                padding: 60px 0;
+            }
+            
+            .about-text h3 {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+            
+            .about-text p {
+                font-size: 1rem;
+            }
+            
+            .pricing-card {
+                padding: 30px 20px;
+            }
+            
+            .calendar-widget {
+                padding: 30px 20px;
+            }
+            
+            .contact-form {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect x='0' y='0' width='200' height='200' fill='white'/%3E%3Cg transform='translate(100,100)'%3E%3Crect x='-50' y='-50' width='100' height='100' fill='none' stroke='%232c3e50' stroke-width='3' transform='rotate(45)'/%3E%3Cline x1='-20' y1='-10' x2='-20' y2='15' stroke='%232c3e50' stroke-width='2'/%3E%3Cpath d='M-28,-12 Q-22,-18 -16,-15 Q-18,-12 -20,-10' fill='none' stroke='%232c3e50' stroke-width='1.5'/%3E%3Cpath d='M-12,-12 Q-18,-18 -24,-15 Q-22,-12 -20,-10' fill='none' stroke='%232c3e50' stroke-width='1.5'/%3E%3Cline x1='8' y1='-15' x2='8' y2='10' stroke='%232c3e50' stroke-width='1.5'/%3E%3Cpath d='M3,-17 Q7,-20 11,-16 Q9,-15 7,-12' fill='none' stroke='%232c3e50' stroke-width='1'/%3E%3Cpath d='M13,-17 Q9,-20 5,-16 Q7,-15 9,-12' fill='none' stroke='%232c3e50' stroke-width='1'/%3E%3Cellipse cx='0' cy='20' rx='25' ry='6' fill='white' stroke='%232c3e50' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E" alt="Last Beach Logo">
+                </div>
+                <div class="logo-text">LAST BEACH</div>
+            </div>
+            <nav class="nav">
+                <a href="#home">STRONA GŁÓWNA</a>
+                <a href="#about">O NAS</a>
+                <a href="#pricing">CENNIK</a>
+                <a href="#calendar">KALENDARZ</a>
+                <a href="#films">FILMY</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">KONTAKT</a>
+                <button class="lang-btn">EN</button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1 class="hero-title">LAST BEACH</h1>
+        <h2 class="hero-subtitle">LA MANGA</h2>
+        <div class="anchor-icon">⚓</div>
+        <p class="hero-description">
+            Komfortowe i stylowe apartamenty w pierwszej linii Morza Śródziemnego - idealne na wakacje
+        </p>
+    </section>
+    
+    <!-- Image Section -->
+    <section class="image-section">
+        <div class="image-container">
+            <img src="images/beach-la-manga.jpg" 
+                 alt="Piękna plaża w La Manga z lazurową wodą" 
+                 class="hero-image">
+            <div class="image-overlay">
+                <h3 class="image-title">Twój dom nad Morzem Śródziemnym</h3>
+                <p class="image-description">Ekskluzywne apartamenty w pierwszej linii brzegowej</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Section -->
+    <section class="logo-section">
+        <div class="logo-container">
+            <div class="main-logo">
+                <div class="logo-diamond">
+                    <div class="palm-trees">
+                        <div class="palm-tree palm-1"></div>
+                        <div class="palm-tree palm-2"></div>
+                        <div class="island"></div>
+                        <div class="waves"></div>
+                    </div>
+                </div>
+                <h2 class="logo-title">LAST BEACH</h2>
+                <h3 class="logo-subtitle">LA MANGA</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">O NAS</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Ekskluzywne apartamenty w sercu La Manga</h3>
+                    <p>Last Beach to wyjątkowe miejsce, gdzie luksus spotyka się z naturą. Nasze apartamenty położone są w pierwszej linii brzegowej Morza Śródziemnego, oferując niezapomniane widoki i dostęp do prywatnej plaży.</p>
+                    <p>Każdy apartament został starannie zaprojektowany z myślą o komforcie naszych gości. Nowoczesne wyposażenie, eleganckie wnętrza i taras z widokiem na morze to tylko niektóre z udogodnień, które czekają na Państwa.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <span class="feature-icon">🏖️</span>
+                            <span>Prywatna plaża</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🌊</span>
+                            <span>Widok na morze</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🏊</span>
+                            <span>Basen</span>
+                        </div>
+                        <div class="feature">
+                            <span class="feature-icon">🅿️</span>
+                            <span>Parking</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <h2 class="section-title">CENNIK</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Apartament Standard</h3>
+                    <div class="price">€80<span>/noc</span></div>
+                    <ul class="features-list">
+                        <li>2 pokoje + salon</li>
+                        <li>Taras z widokiem na morze</li>
+                        <li>Kuchnia w pełni wyposażona</li>
+                        <li>WiFi bezpłatne</li>
+                        <li>Klimatyzacja</li>
+                    </ul>
+                    <button class="btn-reserve">Rezerwuj</button>
+                </div>
+                <div class="pricing-card premium">
+                    <h3>Apartament Premium</h3>
+                    <div class="price">€120<span>/noc</span></div>
+                    <ul class="features-list">
+                        <li>3 pokoje + salon</li>
+                        <li>Duży taras z jacuzzi</li>
+                        <li>Kuchnia premium</li>
+                        <li>WiFi bezpłatne</li>
+                        <li>Klimatyzacja</li>
+                        <li>Dostęp do ekskluzywnej strefy</li>
+                    </ul>
+                    <button class="btn-reserve">Rezerwuj</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>Apartament Deluxe</h3>
+                    <div class="price">€200<span>/noc</span></div>
+                    <ul class="features-list">
+                        <li>4 pokoje + 2 salony</li>
+                        <li>Prywatny taras 50m²</li>
+                        <li>Kuchnia designer</li>
+                        <li>WiFi bezpłatne</li>
+                        <li>Klimatyzacja w każdym pokoju</li>
+                        <li>Obsługa concierge</li>
+                    </ul>
+                    <button class="btn-reserve">Rezerwuj</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar Section -->
+    <section class="calendar-section" id="calendar">
+        <div class="container">
+            <h2 class="section-title">KALENDARZ DOSTĘPNOŚCI</h2>
+            <div class="calendar-info">
+                <p>Sprawdź dostępność naszych apartamentów i zarezerwuj swój pobyt w Last Beach</p>
+                <div class="calendar-placeholder">
+                    <div class="calendar-widget">
+                        <h4>Wybierz daty pobytu</h4>
+                        <div class="date-inputs">
+                            <div class="date-input">
+                                <label>Check-in:</label>
+                                <input type="date" id="checkin">
+                            </div>
+                            <div class="date-input">
+                                <label>Check-out:</label>
+                                <input type="date" id="checkout">
+                            </div>
+                        </div>
+                        <button class="btn-check">Sprawdź dostępność</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Films Section -->
+    <section class="films-section" id="films">
+        <div class="container">
+            <h2 class="section-title">FILMY</h2>
+            <div class="films-grid">
+                <div class="film-item">
+                    <div class="film-thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h4>Prezentacja apartamentów</h4>
+                </div>
+                <div class="film-item">
+                    <div class="film-thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h4>Okoliczne atrakcje</h4>
+                </div>
+                <div class="film-item">
+                    <div class="film-thumbnail">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <h4>Plaża i basen</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <h2 class="section-title">CZĘSTO ZADAWANE PYTANIA</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Czy w apartamentach jest WiFi?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Tak, wszystkie apartamenty wyposażone są w bezpłatne WiFi o wysokiej prędkości.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Czy można anulować rezerwację?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Rezerwację można anulować bezpłatnie do 48 godzin przed planowanym przyjazdem.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Czy zwierzęta są akceptowane?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Tak, akceptujemy zwierzęta domowe za dodatkową opłatą 15€ za noc.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Gdzie można zaparkować samochód?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Dla gości dostępny jest bezpłatny parking podziemny oraz miejsca na powierzchni.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">KONTAKT</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4>📍 Adres</h4>
+                        <p>Avenida del Mar 123<br>30380 La Manga del Mar Menor<br>Murcia, Hiszpania</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>📞 Telefon</h4>
+                        <p>+34 968 123 456</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>✉️ Email</h4>
+                        <p>info@lastbeach.es</p>
+                    </div>
+                    <div class="contact-item">
+                        <h4>🕒 Godziny kontaktu</h4>
+                        <p>Pn-Pt: 9:00-18:00<br>Sb-Nd: 10:00-16:00</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h4>Wyślij wiadomość</h4>
+                    <div class="form-group">
+                        <input type="text" placeholder="Imię i nazwisko" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="Telefon">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Wiadomość" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-send">Wyślij wiadomość</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect x='0' y='0' width='200' height='200' fill='white'/%3E%3Cg transform='translate(100,100)'%3E%3Crect x='-50' y='-50' width='100' height='100' fill='none' stroke='%232c3e50' stroke-width='3' transform='rotate(45)'/%3E%3Cline x1='-20' y1='-10' x2='-20' y2='15' stroke='%232c3e50' stroke-width='2'/%3E%3Cpath d='M-28,-12 Q-22,-18 -16,-15 Q-18,-12 -20,-10' fill='none' stroke='%232c3e50' stroke-width='1.5'/%3E%3Cpath d='M-12,-12 Q-18,-18 -24,-15 Q-22,-12 -20,-10' fill='none' stroke='%232c3e50' stroke-width='1.5'/%3E%3Cline x1='8' y1='-15' x2='8' y2='10' stroke='%232c3e50' stroke-width='1.5'/%3E%3Cpath d='M3,-17 Q7,-20 11,-16 Q9,-15 7,-12' fill='none' stroke='%232c3e50' stroke-width='1'/%3E%3Cpath d='M13,-17 Q9,-20 5,-16 Q7,-15 9,-12' fill='none' stroke='%232c3e50' stroke-width='1'/%3E%3Cellipse cx='0' cy='20' rx='25' ry='6' fill='white' stroke='%232c3e50' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E" alt="Last Beach Logo">
+                        </div>
+                        <div class="logo-text">LAST BEACH</div>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="#home">Strona główna</a>
+                    <a href="#about">O nas</a>
+                    <a href="#pricing">Cennik</a>
+                    <a href="#contact">Kontakt</a>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">🐦</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Last Beach La Manga. Wszystkie prawa zastrzeżone.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // FAQ Toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const faqItem = this.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                const toggle = this.querySelector('.faq-toggle');
+                
+                faqItem.classList.toggle('active');
+                
+                if (faqItem.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    toggle.textContent = '−';
+                } else {
+                    answer.style.maxHeight = '0';
+                    toggle.textContent = '+';
+                }
+            });
+        });
+
+        // Language switcher functionality
+        document.querySelector('.lang-btn').addEventListener('click', function() {
+            if (this.textContent === 'EN') {
+                this.textContent = 'PL';
+                // Here you would implement language switching
+                console.log('Switching to English');
+            } else {
+                this.textContent = 'EN';
+                console.log('Switching to Polish');
+            }
+        });
+
+        // Form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Dziękujemy za wiadomość! Skontaktujemy się z Państwem wkrótce.');
+        });
+
+        // Calendar functionality
+        document.querySelector('.btn-check').addEventListener('click', function() {
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+            
+            if (checkin && checkout) {
+                alert(`Sprawdzanie dostępności od ${checkin} do ${checkout}`);
+            } else {
+                alert('Proszę wybrać daty pobytu');
+            }
+        });
+
+        // Reserve buttons
+        document.querySelectorAll('.btn-reserve').forEach(btn => {
+            btn.addEventListener('click', function() {
+                alert('Przekierowanie do systemu rezerwacji...');
+            });
+        });
+    </script>
+</body>
+</html>
