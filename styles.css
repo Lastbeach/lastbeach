@@ -1,126 +1,63 @@
+/* ===============================================
+   ZMIENNE CSS
+   =============================================== */
+:root {
+       --deep-navy: #1a2332;
+       --warm-gold: #d4af37;
+       --pearl-white: #f8f9fa;
+       --silver-mist: #e9ecef;
+       --soft-cream: #fefefe;
+       --ocean-blue: #4a90e2;
+       --sunset-coral: #ff6b6b;
+}
 
-/* =============================================================================
+/* ===============================================
+   RESET I PODSTAWY
+   =============================================== */
+* {
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+}
+
+body {
+       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+       background-color: var(--pearl-white);
+       color: var(--deep-navy);
+       line-height: 1.6;
+       overflow-x: hidden;
+}
+
+.container {
+       max-width: 1200px;
+       margin: 0 auto;
+       padding: 0 20px;
+}
+
+/* ===============================================
    TYPOGRAFIA
-   ============================================================================= */
-
-/* Główne nagłówki */
+   =============================================== */
 h1, .title-xl {
-      font-family: 'Playfair Display', serif;
-      font-size: 4.5em;
-      font-weight: 300;
-      letter-spacing: 8px;
-      line-height: 1.1;
-      color: var(--deep-navy);
+       font-family: 'Playfair Display', serif;
+       font-size: 4.5em;
+       font-weight: 300;
+       letter-spacing: 8px;
+       line-height: 1.1;
+       color: var(--deep-navy);
 }
 
 h2, .title-large {
-      font-family: 'Playfair Display', serif;
-      font-size: 3em;
-      font-weight: 300;
-      letter-spacing: 2px;
-      color: var(--deep-navy);
-      position: relative;
+       font-family: 'Playfair Display', serif;
+       font-size: 3em;
+       font-weight: 300;
+       letter-spacing: 2px;
+       color: var(--deep-navy);
+       position: relative;
 }
 
-/* Podkreślenie pod nagłówkami */
-h2::after, .title-large::after {
-      content: '';
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      width: 80px;
-      height: 1px;
-      background: var(--warm-gold);
-      transform: translateX(-50%);
-}
-
-/* Tekst podstawowy */
 p {
-      font-size: 1.1em;
-      line-height: 1.8;
-      color: var(--deep-navy);
-      font-weight: 300;
+       font-size: 1.1em;
+       line-height: 1.8;
+       color: var(--deep-navy);
+       font-weight: 300;
 }
-
-/* =============================================================================
-   NAWIGACJA
-   ============================================================================= */
-
-.header {
-      background: rgba(248, 249, 250, 0.97);
-      backdrop-filter: blur(15px);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid var(--silver-mist);
-}
-
-.nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-}
-
-.logo-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8em;
-      font-weight: 300;
-      color: var(--deep-navy);
-      letter-spacing: 3px;
-      position: relative;
-}
-
-.logo-text::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--warm-gold), transparent);
-}
-
-/* =============================================================================
-   SEKCJE HERO
-   ============================================================================= */
-
-.hero {
-      height: 100vh;
-      background: linear-gradient(135deg, var(--deep-navy) 0%, var(--ocean-blue) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-}
-
-.hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg opacity='0.1'%3E%3Cpath d='M20,50 L30,45 L40,50 L50,45 L60,50 L70,45 L80,50' stroke='white' stroke-width='1' fill='none'/%3E%3Cpath d='M20,60 L30,55 L40,60 L50,55 L60,60 L70,55 L80,60' stroke='white' stroke-width='1' fill='none'/%3E%3C/g%3E%3C/svg%3E") repeat;
-}
-
-.hero-content {
-      text-align: center;
-      z-index: 2;
-      position: relative;
-}
-
-.hero h1 {
-      color: var(--pearl-white);
-      margin-bottom: 30px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-.hero p {
-      color: var(--pearl-white);
-      font-size: 1.3em;
-      margin-bottom: 50px;
-      opacity: 0.9;
-      max-wi
